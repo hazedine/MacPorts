@@ -1,0 +1,20 @@
+# $Id: Portfile 56061 2009-08-24 00:33:19Z ryandesign@macports.org $
+
+PortSystem 1.0
+name              minc
+version           2.1.00
+categories        science
+platforms         darwin
+maintainers       mac.com:mhough
+description       This package contains tools to manipulate MINC files.
+long_description  The Minc file format is a highly flexible medical image file format built on top of the NetCDF generalized data format. The format is simple, self-describing, extensible, portable and N-dimensional, with programming interfaces for both low-level data access and high-level volume manipulation. On top of the libraries is a suite of generic image-file manipulation tools. The format, libraries and tools are designed for use in a medical-imaging research environment: they are simple and powerful and make no attempt to provide a pretty interface to users.
+homepage          http://www.bic.mni.mcgill.ca/software/
+master_sites      ${homepage}/distribution/packages/ \
+                          http://packages.bic.mni.mcgill.ca/tgz/
+checksums        md5 1ef2402abc8f49d870d9f610eb5ad4c8
+depends_lib       port:netcdf port:hdf5-18
+
+platform darwin 8 {
+    patchfiles  patch-time.c
+}
+configure.args  --with-build-path="${prefix}" --mandir=${prefix}/share/man 

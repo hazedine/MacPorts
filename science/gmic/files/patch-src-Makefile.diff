@@ -1,0 +1,90 @@
+--- src/Makefile.orig	2011-02-14 15:47:29.000000000 -0500
++++ src/Makefile	2011-02-14 17:41:12.000000000 -0500
+@@ -52,7 +52,7 @@
+ OS = Linux
+ endif
+ ifeq ($(OS),Darwin)
+-PLUGINDIR = ~/Library/Application\ Support/Gimp/plug-ins
++PLUGINDIR = /lib/gimp/2.0/plug-ins
+ USR = /opt/local
+ else
+ PLUGINDIR=`gimptool-2.0 --gimpplugindir`/plug-ins
+@@ -80,7 +80,7 @@
+ MANDATORY_LDFLAGS = -L$(USR)/lib
+ ifeq ($(IS_GCC),yes)
+ MANDATORY_CFLAGS += -Wall -W
+-MANDATORY_LDFLAGS = -lm
++MANDATORY_LDFLAGS += -lm
+ endif
+ 
+ # Flags to enable debugging.
+@@ -194,7 +194,7 @@
+ STD_MACOSX_CFLAGS= $(MANDATORY_CFLAGS) $(X11_CFLAGS) $(ZLIB_CFLAGS) $(PNG_CFLAGS) \
+                    $(JPEG_CFLAGS) $(TIFF_CFLAGS) \
+ 		   $(MAGICK_CFLAGS) $(EXR_CFLAGS) $(FFTW_CFLAGS)
+-STD_MACOSX_LDFLAGS = $(X11_LDFLAGS) $(ZLIB_LDFLAGS) $(MANDATORY_LDFLAGS) \
++STD_MACOSX_LDFLAGS = $(MANDATORY_LDFLAGS) $(X11_LDFLAGS) $(ZLIB_LDFLAGS) \
+ 		     $(PNG_LDFLAGS) $(JPEG_LDFLAGS) $(TIFF_LDFLAGS) \
+ 		     $(MAGICK_LDFLAGS) $(EXR_LDFLAGS) $(FFTW_LDFLAGS)
+ 
+@@ -242,10 +242,10 @@
+ endif
+ 
+ gimp:
+-	$(MAKE) "CFLAGS+=$(STD_GIMP_CFLAGS) $(OPT_CFLAGS)" "LDFLAGS+=$(STD_GIMP_LDFLAGS)" "STRIP_EXE=1" gmic_gimp
++	$(MAKE) "CFLAGS+=$(STD_GIMP_CFLAGS)" "LDFLAGS+=$(STD_GIMP_LDFLAGS)" "STRIP_EXE=1" gmic_gimp
+ 
+ lib:
+-	$(MAKE) "CFLAGS+=$(STD_LIB_CFLAGS) $(OPT_CFLAGS)" "LDFLAGS+=$(STD_LIB_LDFLAGS)" gmic_lib
++	$(MAKE) "CFLAGS+=$(STD_LIB_CFLAGS)" "LDFLAGS+=$(STD_LIB_LDFLAGS)" gmic_lib
+ 
+ # Entries for non-default configurations.
+ minimal:
+@@ -264,7 +264,7 @@
+ 	$(MAKE) "CFLAGS+=$(STD_UNIX_CFLAGS) $(OPT_CFLAGS)" "LDFLAGS+=$(STD_UNIX_LDFLAGS) -R$(USR)/X11R6/lib -lrt -lnsl -lsocket" "STRIP_EXE=1" gmic_gmic
+ 
+ macosx:
+-	$(MAKE) "CFLAGS+=$(STD_MACOSX_CFLAGS) $(OPT_CFLAGS)" "LDFLAGS+=$(STD_MACOSX_LDFLAGS)" gmic_gmic
++	$(MAKE) "CFLAGS+=$(STD_MACOSX_CFLAGS)" "LDFLAGS+=$(STD_MACOSX_LDFLAGS)" gmic_gmic
+ 
+ windows:
+ 	$(MAKE) "CFLAGS+=$(STD_WINDOWS_CFLAGS) $(OPT_CFLAGS)" "LDFLAGS+=$(STD_WINDOWS_LDFLAGS)" "STRIP_EXE=1" gmic_gmic
+@@ -318,18 +318,18 @@
+ 	$(CC) -o gmic_bashcompletion gmic_bashcompletion.cpp
+ 
+ # Install/uninstall/clean.
+-install:
+-	mkdir -p $(DESTDIR)$(PLUGINDIR)/
+-	cp -f gmic_gimp $(DESTDIR)$(PLUGINDIR)/
++install: install_gmic install_doc install_gimp install_bashcompletion
++
++install_gmic:
+ 	mkdir -p $(DESTDIR)$(USR)/bin/
+ 	cp -f gmic $(DESTDIR)$(USR)/bin/
++
++install_doc:
+ 	mkdir -p $(DESTDIR)$(USR)/share/man/man1/
+ 	mkdir -p $(DESTDIR)$(USR)/share/man/fr/man1/
+ 	cp -f ../man/gmic.1.gz $(DESTDIR)$(USR)/share/man/man1/gmic.1.gz
+ 	cp -f ../man/gmic.1.gz $(DESTDIR)$(USR)/share/man/fr/man1/gmic.1.gz
+ 	mkdir -p $(DESTDIR)$(USR)/share/doc/gmic/html/img/
+-	if test -d /etc/bash_completion.d/; then mkdir -p $(DESTDIR)/etc/bash_completion.d/; cp -f gmic_bashcompletion.sh $(DESTDIR)/etc/bash_completion.d/gmic; fi
+-	if test -d /opt/local/etc/bash_completion.d/; then mkdir -p $(DESTDIR)/opt/local/etc/bash_completion.d/; cp -f gmic_bashcompletion.sh $(DESTDIR)/opt/local/etc/bash_completion.d/gmic; fi
+ 	for pixmap in ../html/*.*; do \
+ 	  if test -f $$pixmap; then \
+ 	    cp -f  $$pixmap  $(DESTDIR)$(USR)/share/doc/gmic/html/; \
+@@ -341,6 +341,14 @@
+ 	  fi \
+ 	done
+ 
++install_gimp:
++	mkdir -p $(DESTDIR)$(USR)$(PLUGINDIR)/
++	cp -f gmic_gimp $(DESTDIR)$(USR)$(PLUGINDIR)/
++
++install_bashcompletion:
++	if test -d /opt/local/etc/bash_completion.d/; then mkdir -p $(DESTDIR)/opt/local/etc/bash_completion.d/; cp -f gmic_bashcompletion.sh $(DESTDIR)/opt/local/etc/bash_completion.d/gmic; fi
++
++
+ uninstall:
+ 	rm -f $(DESTDIR)$(USR)/bin/gmic
+ 	rm -rf $(DESTDIR)$(USR)/share/doc/gmic/

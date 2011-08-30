@@ -1,0 +1,62 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id$
+
+PortSystem 1.0
+
+name              gmic
+version           1.4.8.1
+#licence	          CeCILL license (GPL-compatible)
+categories        science
+platforms         darwin
+maintainers       cim.mcgill.ca:assemlal
+description       G'MIC is an interpreter of image processing macros (stand-alone binary and GIMP plug-in).
+long_description  G'MIC stands for GREYC's Magic Image Converter. It is focused on the design of possibly complex pipelines for converting, manipulating, filtering and visualizing generic 1d/2d/3d multi-spectral image datasets. This includes classical color images, but also more complex data as image sequences or 3D volumetric images. G'MIC has been designed with portability in mind and runs on different platforms (Windows, Unix, MacOSX).
+homepage          http://gmic.sourceforge.net/
+master_sites      sourceforge
+checksums         md5	e417b9c8f5ee61d9aa1c2a823ab8491f
+depends_lib       port:GraphicsMagick port:libpng port:jpeg port:fftw-3 \
+    port:tiff port:zlib lib:libX11.6:xorg port:openexr port:ilmbase
+distfiles	      ${name}_${version}${extract.suffix}
+worksrcdir        ${distname}/src
+use_configure	  no
+patch.dir         ${workpath}/${distname}
+patchfiles        patch-src-Makefile.diff
+default_variants  +bash_completion
+build.target      macosx
+use_parallel_build  no
+destroot.target   install_gmic install_doc
+
+variant bash_completion description {Add bash completion to the command-line binary} {
+    build.target-append bashcompletion
+    destroot.target-append install_bashcompletion
+}
+
+variant gimp_plugin description {Add G'MIC plugin for the GIMP} {
+    depends_lib-append port:gimp2
+    build.target-append gimp
+    destroot.target-append install_gimp
+}
+
+variant opencv description {Add OpenCV Camera support to G'MIC} {
+    depends_lib-append port:opencv
+    build.args-append CFLAGS+="-I${prefix}/include/opencv -Dcimg_use_opencv" \
+        LDFLAGS+="-lopencv_core -lopencv_highgui"
+}
+
+variant ffmpeg description {Add FFMPEG video support to G'MIC} {
+    depends_lib-append port:ffmpeg
+    build.args-append  CFLAGS+="-Dcimg_use_ffmpeg -D__STDC_CONSTANT_MACROS \
+        -I${prefix}/include/libavcodec -I${prefix}/include/libavformat \
+        -I${prefix}/include/libswscale -I${prefix}/include/ffmpeg" \
+        LDFLAGS+="-lavcodec -lavformat -lswscale"
+}
+
+variant minc2 description {Add MINC 2 plugin support to G'MIC} {
+    depends_lib-append port:minc
+    build.args-append CFLAGS+="-Dcimg_use_minc2" \
+        LDFLAGS+="-lminc2"
+}
+
+variant optimize description {Enable compiler optimizations. Caution: requires a LOT of memory.} {
+    build.args-append CFLAGS+="-O3 -fno-tree-pre"
+}
