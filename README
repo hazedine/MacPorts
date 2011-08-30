@@ -20,7 +20,7 @@ To correctly setup this tools collection, you have to create a local MacPorts re
 
 2- Edit the sources MacPorts configuration file (default: /opt/local/etc/macports/sources.conf) to add your local repository.
   sudo nano /opt/local/etc/macports/sources.conf
-  BEDORE any rsync line, add the line "file:///usr/local/MacPorts"
+  BEDORE any rsync line, add the line 'file:///usr/local/MacPorts'
 
 3- Update the index of your local repository
   cd /usr/local/MacPorts
