@@ -4,8 +4,18 @@ INTRODUCTION
 ------------
 This collection eases the installation on MacOS X of some softwares related to image processing. 
 For now, it includes:
-* MINC (Medical Image NetCDF) -> https://github.com/andrewjanke/minc
-* G'MIC (GREYC's Magic Image Converter) -> http://gmic.sourceforge.net
+* minc (Medical Image NetCDF) -> https://github.com/andrewjanke/minc
+* gmic (GREYC's Magic Image Converter) -> http://gmic.sourceforge.net
+* bicpl
+* mincblob
+* mincfft
+* mincpls
+* mincsample
+* ebtks
+* mincdti
+* mincmorph
+* mincregress
+* mni-autoreg
 
 Additional tools may me added later to this list.
 
