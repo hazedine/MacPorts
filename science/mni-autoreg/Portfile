@@ -1,0 +1,18 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id$
+
+PortSystem 1.0
+name              mni_autoreg
+version           0.99.6
+categories        science
+platforms         darwin
+maintainers       assemlal.com:haz-edine
+description       This package contains tools to manipulate MINC files.
+long_description  Register MINC files.
+homepage          http://www.bic.mni.mcgill.ca/software
+master_sites      http://packages.bic.mni.mcgill.ca/tgz/ \
+    ${homepage}/distribution/packages/
+checksums         md5 c481e73dad4d293d990ba2ab80041862
+depends_lib       port:minc
+
+configure.args  --with-build-path="${prefix}" --mandir=${prefix}/share/man --with-minc2 
