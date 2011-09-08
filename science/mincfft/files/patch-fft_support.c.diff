@@ -1,0 +1,11 @@
+--- fft_support.c.orig	2011-09-08 13:54:04.000000000 -0400
++++ fft_support.c	2011-09-08 13:57:02.000000000 -0400
+@@ -35,7 +35,7 @@
+ 
+ #include <math.h>
+ #include <float.h>
+-#include <fftw.h>
++#include <dfftw.h>
+ #include "fft_support.h"
+ 
+ /* function prototypes */

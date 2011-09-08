@@ -1,0 +1,17 @@
+--- ./configure.ac.orig	2011-09-08 13:41:47.000000000 -0400
++++ ./configure.ac	2011-09-08 13:53:16.000000000 -0400
+@@ -23,10 +23,10 @@
+ mni_REQUIRE_VOLUMEIO
+ 
+ # check for fftw
+-AC_CHECK_HEADER(fftw.h,
+-   AC_CHECK_LIB([fftw], fftw_create_plan, , 
+-   AC_MSG_ERROR([*** Could not find libfftw])),
+-   AC_MSG_ERROR([*** Header file fftw.h not found])
++AC_CHECK_HEADER(dfftw.h,
++   AC_CHECK_LIB([dfftw], fftw_create_plan, , 
++   AC_MSG_ERROR([*** Could not find libdfftw])),
++   AC_MSG_ERROR([*** Header file dfftw.h not found])
+    )
+ 
+ # Finish up by writing output files.
