@@ -1,0 +1,39 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id
+
+PortSystem 1.0
+name              N3
+version           1.12.0
+categories        science
+platforms         darwin
+maintainers       assemlal.com:haz-edine
+description       MNI Non-parametric Non-uniformity Normalization (N3) Package.
+long_description  \
+An artifact often seen in MRI is for the signal intensity to vary smoothly \
+across an image.  Variously referred to as RF inhomogeneity, shading \
+artifact, or intensity non-uniformity, it is usually attributed to such \
+factors as poor radio frequency (RF) field uniformity, eddy currents driven \
+by the switching of field gradients, and patient anatomy both inside and \
+outside the field of view. \
+ \
+The perl script nu_correct implements a novel approach to correcting for \
+intensity non-uniformity in MR data that achieves high performance without \
+requiring supervision.  By making relatively few assumptions about the \
+data, the method can be applied at an early stage in an automated data \
+analysis, before a tissue intensity or geometric model is available. \
+Described as Non-parametric Non-uniform intensity Normalization (N3), the \
+method is independent of pulse sequence and insensitive to pathological \
+data that might otherwise violate model assumptions.  To eliminate the \
+dependence of the field estimate on anatomy, an iterative approach is \
+employed to estimate both the multiplicative bias field and the \
+distribution of the true tissue intensities.  Preprocessing of MR data \
+using N3 has been shown to substantially improve the accuracy of \
+anatomical analysis techniques such as tissue classification and cortical \
+surface extraction. 
+
+homepage          http://www.bic.mni.mcgill.ca/software/
+master_sites      http://packages.bic.mni.mcgill.ca/tgz/ \
+    ${homepage}/distribution/packages
+checksums        md5 1eeba6c3e024c0d21924e89674198213
+depends_lib      port:minc port:ebtks
+configure.args  --with-build-path="${prefix}" --mandir=${prefix}/share/man --with-minc2
