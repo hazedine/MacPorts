@@ -16,6 +16,7 @@ For now, it includes:
 * mincmorph
 * mincregress
 * mni-autoreg
+* N3 (MNI Non-parametric Non-uniformity Normalization (N3) Package)
 
 Additional tools may me added later to this list.
 
