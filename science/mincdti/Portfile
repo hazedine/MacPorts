@@ -11,7 +11,7 @@ description       This package contains tools to manipulate MINC files.
 long_description  It computes the DTI tensor and computes various measures of anisotropy (FA, VF, ISO etc etc).
 homepage          http://www.bic.mni.mcgill.ca/software
 master_sites      http://packages.bic.mni.mcgill.ca/tgz/ \
-    ${homepage}/distribution/packages/ \
+    ${homepage}/distribution/packages/ 
 checksums        md5 78348d4b5623950bacc6589232bc8cfd
 depends_lib      port:minc
 
