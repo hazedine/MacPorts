@@ -1,8 +1,8 @@
-MacPorts - A collection of image processing tools on MacOSX. 
+MacPorts - A collection of image processing tools on MacOSX.
 
 INTRODUCTION
 ------------
-This collection eases the installation on MacOS X of some softwares related to image processing. 
+This collection eases the installation on MacOS X of some software related to image processing. 
 For now, it includes:
 * minc (Medical Image NetCDF) -> https://github.com/andrewjanke/minc
 * gmic (GREYC's Magic Image Converter) -> http://gmic.sourceforge.net
@@ -18,24 +18,24 @@ For now, it includes:
 * mni-autoreg
 * N3 (MNI Non-parametric Non-uniformity Normalization (N3) Package)
 
-Additional tools may me added later to this list.
+Additional tools may be added to this list later.
 
 INSTALLATION
 ------------
 You need a running version of MacPorts on your machine. Please see http://www.macports.org for more details.
 
-To correctly setup this tools collection, you have to create a local MacPorts repository:
+To setup this tools collection, you have to create a local MacPorts repository:
 1- Pull this git repository to a local directory on your computer.
   mkdir -p /usr/local/MacPorts && cd /usr/local/MacPorts
   git clone git://github.com/hassemlal/MacPorts.git /usr/local/MacPorts
 
 2- Edit the sources MacPorts configuration file (default: /opt/local/etc/macports/sources.conf) to add your local repository.
   sudo nano /opt/local/etc/macports/sources.conf
-  BEDORE any rsync line, add the line 'file:///usr/local/MacPorts'
+  add the line 'file:///usr/local/MacPorts' BEFORE any rsync line, 
 
 3- Update the index of your local repository
   cd /usr/local/MacPorts
   portindex
 
-This complete the setup process. You can now install these collections tools using MacPorts.
+This completes the setup process. You can now install tools using MacPorts.
   sudo port install minc
