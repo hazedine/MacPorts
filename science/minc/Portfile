@@ -13,6 +13,7 @@ homepage          http://www.bic.mni.mcgill.ca/software/
 master_sites      http://packages.bic.mni.mcgill.ca/tgz/ \
     ${homepage}/distribution/packages/ \
 checksums         md5 1ef2402abc8f49d870d9f610eb5ad4c8
+                  rmd160 5b3b0d021045eb6eff9207b9d9c2ac3c74c6a35a
 depends_lib       port:netcdf port:hdf5-18
 
 platform darwin 8 {
