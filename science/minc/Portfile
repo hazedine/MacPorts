@@ -3,7 +3,7 @@
 
 PortSystem 1.0
 name              minc
-version           2.1.00
+version           2.1.10
 categories        science
 platforms         darwin
 maintainers       assemlal.com:haz-edine
